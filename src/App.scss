@@ -1,0 +1,82 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html,
+body {
+  overscroll-behavior: none;
+}
+
+html {
+  font-size: 62.5%;
+  background-size: cover;
+  background: rgb(58, 58, 58);
+  background: radial-gradient(#fcfefc 40%, #000000ad 60%);
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  box-sizing: border-box;
+}
+button:focus,
+input:focus {
+  outline: 0;
+}
+button {
+  cursor: pointer;
+}
+
+.App {
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
+  min-width: 35rem;
+  min-height: 45rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btns {
+  display: flex;
+  width: 20rem;
+  justify-content: space-around;
+  Button {
+    padding: 1rem;
+    border: none;
+    background: linear-gradient(to bottom right, rgb(49, 49, 49), rgb(8, 8, 8));
+    color: white;
+    border-radius: 1rem;
+    transition: all 0.2s ease;
+    &:hover {
+      color: red;
+    }
+  }
+  .answer-toggle {
+    width: 12rem;
+  }
+}
+
+.speech {
+  height: 10rem;
+  min-width: 30rem;
+  width: 95vw;
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), rgb(8, 8, 8));
+  color: white;
+  padding: 0 1rem;
+  overflow: scroll;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  border: 2px solid rgb(168, 168, 168);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
