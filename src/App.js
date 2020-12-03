@@ -1,31 +1,33 @@
 import './App.scss';
-// import Speech from "react-speech";
 import { useState, useRef, useEffect } from 'react';
-import clickmp3 from './audio/click.mp3';
+import upWhoosh from './audio/upWhoosh.mp3';
 import colorTv from './imgs/colorTv.gif';
 import staticTv from './imgs/staticTv.gif';
+import downClick from './audio/downClick.mp3';
 
 function App() {
   const [question, setQuestion] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [speaking, setSpeaking] = useState(false);
 
-  let clickSound = new Audio(clickmp3);
+  let mouseUpSound = new Audio(upWhoosh);
+  let mouseDownSound = new Audio(downClick);
+  mouseDownSound.volume = 0.15;
 
   const handlePrevious = () => {
-    clickSound.play();
+    mouseUpSound.play();
     setShowAnswer(false);
     setQuestion((q) => (q - 1 > -1 ? q - 1 : questions.length - 1));
   };
 
   const handleNext = () => {
-    clickSound.play();
+    mouseUpSound.play();
     setShowAnswer(false);
     setQuestion((q) => (q + 1 < questions.length ? q + 1 : 0));
   };
 
   const handleAnswer = () => {
-    clickSound.play();
+    mouseUpSound.play();
     setShowAnswer(!showAnswer);
   };
 
@@ -35,13 +37,20 @@ function App() {
   return (
     <div className='App'>
       <div className='btns'>
-        <button onClick={handlePrevious}>
+        <button
+          onMouseDown={() => mouseDownSound.play()}
+          onClick={handlePrevious}
+        >
           <i className='fas fa-chevron-left'></i>
         </button>
-        <button className='answer-toggle' onClick={handleAnswer}>
+        <button
+          className='answer-toggle'
+          onMouseDown={() => mouseDownSound.play()}
+          onClick={handleAnswer}
+        >
           show {showAnswer ? 'question' : 'answer'}
         </button>
-        <button onClick={handleNext}>
+        <button onClick={handleNext} onMouseDown={() => mouseDownSound.play()}>
           <i className='fas fa-chevron-right'></i>
         </button>
       </div>
@@ -69,7 +78,6 @@ const Speech = ({ text, voice, onend, onstart }) => {
   var synth = window.speechSynthesis;
   var utterThis = useRef();
   useEffect(() => {
-    // var voices = synth.getVoices();
     synth.cancel();
     utterThis.current = new SpeechSynthesisUtterance(text);
     utterThis.current.onstart = onstart;
