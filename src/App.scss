@@ -49,14 +49,21 @@ button {
   width: 20rem;
   justify-content: space-around;
   Button {
+    font-weight: bold;
     padding: 1rem;
     border: none;
     background: linear-gradient(to bottom right, rgb(49, 49, 49), rgb(8, 8, 8));
     color: white;
     border-radius: 1rem;
     transition: all 0.2s ease;
+    opacity: 0.9;
     &:hover {
       color: red;
+      opacity: 1;
+    }
+    &:active {
+      color: rgb(0, 0, 0);
+      background: white;
     }
   }
   .answer-toggle {

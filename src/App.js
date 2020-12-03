@@ -1,7 +1,7 @@
 import './App.scss';
 // import Speech from "react-speech";
 import { useState, useRef, useEffect } from 'react';
-
+import clickmp3 from './audio/click.mp3';
 import colorTv from './imgs/colorTv.gif';
 import staticTv from './imgs/staticTv.gif';
 
@@ -10,17 +10,22 @@ function App() {
   const [showAnswer, setShowAnswer] = useState(false);
   const [speaking, setSpeaking] = useState(false);
 
+  let clickSound = new Audio(clickmp3);
+
   const handlePrevious = () => {
+    clickSound.play();
     setShowAnswer(false);
     setQuestion((q) => (q - 1 > -1 ? q - 1 : questions.length - 1));
   };
 
   const handleNext = () => {
+    clickSound.play();
     setShowAnswer(false);
     setQuestion((q) => (q + 1 < questions.length ? q + 1 : 0));
   };
 
   const handleAnswer = () => {
+    clickSound.play();
     setShowAnswer(!showAnswer);
   };
 
