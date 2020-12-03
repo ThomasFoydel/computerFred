@@ -1,7 +1,7 @@
 {
   "name": "computerfred",
   "version": "1.0.0",
-  "description": "",
+  "description": "a computer guy who reads flash cards",
   "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
