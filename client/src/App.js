@@ -15,42 +15,51 @@ function App() {
   mouseDownSound.volume = 0.15;
 
   const handlePrevious = () => {
-    mouseUpSound.play();
+    makeMouseUpSound();
     setShowAnswer(false);
     setQuestion((q) => (q - 1 > -1 ? q - 1 : questions.length - 1));
   };
 
   const handleNext = () => {
-    mouseUpSound.play();
+    makeMouseUpSound();
     setShowAnswer(false);
     setQuestion((q) => (q + 1 < questions.length ? q + 1 : 0));
   };
 
   const handleAnswer = () => {
-    mouseUpSound.play();
+    makeMouseUpSound();
     setShowAnswer(!showAnswer);
+  };
+
+  const makeMouseUpSound = () => {
+    mouseDownSound.pause();
+    mouseUpSound.pause();
+    mouseUpSound.play();
   };
 
   const handleStart = () => setSpeaking(true);
   const handleEnd = () => setSpeaking(false);
 
+  const handleMouseDown = () => {
+    mouseDownSound.pause();
+    mouseUpSound.pause();
+    mouseDownSound.play();
+  };
+
   return (
     <div className='App'>
       <div className='btns'>
-        <button
-          onMouseDown={() => mouseDownSound.play()}
-          onClick={handlePrevious}
-        >
+        <button onMouseDown={handleMouseDown} onClick={handlePrevious}>
           <i className='fas fa-2x fa-chevron-left'></i>
         </button>
         <button
           className='answer-toggle'
-          onMouseDown={() => mouseDownSound.play()}
+          onMouseDown={handleMouseDown}
           onClick={handleAnswer}
         >
           show {showAnswer ? 'question' : 'answer'}
         </button>
-        <button onClick={handleNext} onMouseDown={() => mouseDownSound.play()}>
+        <button onClick={handleNext} onMouseDown={handleMouseDown}>
           <i className='fas fa-2x fa-chevron-right'></i>
         </button>
       </div>
@@ -63,6 +72,7 @@ function App() {
           textAsButton={true}
           onstart={handleStart}
           onend={handleEnd}
+          showAnswer={showAnswer}
         ></Speech>
       </div>
     </div>
@@ -72,17 +82,24 @@ function App() {
 // Samantha, Fred, Victoria, Daniel, Alex
 // Google US English
 
-const Speech = ({ text, voice, onend, onstart }) => {
+const Speech = ({ text, voice, onend, onstart, showAnswer }) => {
   var synth = window.speechSynthesis;
   var utterThis = useRef();
   useEffect(() => {
     synth.cancel();
-    utterThis.current = new SpeechSynthesisUtterance(text);
+    utterThis.current = new SpeechSynthesisUtterance(`... ... ${text}`);
     utterThis.current.onstart = onstart;
     utterThis.current.onend = onend;
     synth.speak(utterThis.current);
   }, [text]);
-  return <div className='speech'>{text}</div>;
+  return (
+    <div
+      className='speech'
+      style={{ filter: showAnswer ? 'invert(100%)' : 'invert(0%)' }}
+    >
+      {text}
+    </div>
+  );
 };
 
 export default App;
