@@ -4,7 +4,7 @@ import upWhoosh from './audio/upWhoosh.mp3';
 import colorTv from './imgs/colorTv.gif';
 import staticTv from './imgs/staticTv.gif';
 import downClick from './audio/downClick.mp3';
-
+import questions from './util/questions.js';
 function App() {
   const [question, setQuestion] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
@@ -41,7 +41,7 @@ function App() {
           onMouseDown={() => mouseDownSound.play()}
           onClick={handlePrevious}
         >
-          <i className='fas fa-chevron-left'></i>
+          <i className='fas fa-2x fa-chevron-left'></i>
         </button>
         <button
           className='answer-toggle'
@@ -51,11 +51,11 @@ function App() {
           show {showAnswer ? 'question' : 'answer'}
         </button>
         <button onClick={handleNext} onMouseDown={() => mouseDownSound.play()}>
-          <i className='fas fa-chevron-right'></i>
+          <i className='fas fa-2x fa-chevron-right'></i>
         </button>
       </div>
 
-      <img src={speaking ? staticTv : colorTv} />
+      <img className='fred' alt='fred' src={speaking ? staticTv : colorTv} />
       <div>
         <Speech
           voice='Fred'
@@ -63,8 +63,6 @@ function App() {
           textAsButton={true}
           onstart={handleStart}
           onend={handleEnd}
-          // pitch=".5"
-          // rate="1"
         ></Speech>
       </div>
     </div>
@@ -87,27 +85,4 @@ const Speech = ({ text, voice, onend, onstart }) => {
   return <div className='speech'>{text}</div>;
 };
 
-const questions = [
-  {
-    q: 'Differentiate between Real DOM and Virtual DOM',
-    a: `Real: updates slow, can directly update HTML, creates new DOM element updates, DOM manipulation is expensive, too much memory waste.
-  Virtual: updates faster, can't directly update HTML, update the JSX if element updates, DOM manipulation is easy, no memory waste.`,
-  },
-
-  {
-    q: 'What is react?',
-    a: `React is a front-end JavaScript library developed by Facebook. It follows the component based approach which helps in building reusable UI components`,
-  },
-
-  {
-    q: 'What are the features of React?',
-    a:
-      'It uses the virtual DOM instead of the real DOM. It uses server-side rendering. It follows uni-directional data flow or data binding.',
-  },
-  {
-    q: 'List some of the major advantages of React',
-    a:
-      "It increases the application's performance. It can be conveniently used on the client as well as server side. Because of JSX, code's readability increases. React is easy to integrate with other frameworks like Meteor, Angular, etc. Using React, writing UI test cases become extremely easy.",
-  },
-];
 export default App;
