@@ -4,11 +4,15 @@ import upWhoosh from './audio/upWhoosh.mp3';
 import colorTv from './imgs/colorTv.gif';
 import staticTv from './imgs/staticTv.gif';
 import downClick from './audio/downClick.mp3';
-import questions from './util/questions.js';
+import questionStore from './util/questionStore.js';
+
 function App() {
   const [question, setQuestion] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [speaking, setSpeaking] = useState(false);
+  const [topic, setTopic] = useState('javascript');
+
+  let questions = questionStore[topic];
 
   let mouseUpSound = new Audio(upWhoosh);
   let mouseDownSound = new Audio(downClick);
@@ -46,6 +50,10 @@ function App() {
     mouseDownSound.play();
   };
 
+  const handleTopic = ({ target: { id } }) => {
+    setTopic(id);
+  };
+
   return (
     <div className='App'>
       <div className='btns'>
@@ -62,6 +70,14 @@ function App() {
         <button onClick={handleNext} onMouseDown={handleMouseDown}>
           <i className='fas fa-2x fa-chevron-right'></i>
         </button>
+      </div>
+
+      <div className='topic-selector'>
+        {Object.keys(questionStore).map((key) => (
+          <button id={key} key={key} onClick={handleTopic}>
+            {key}
+          </button>
+        ))}
       </div>
 
       <img className='fred' alt='fred' src={speaking ? staticTv : colorTv} />

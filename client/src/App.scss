@@ -101,3 +101,10 @@ button {
   -ms-user-select: none; /* IE 10+ */
   user-select: none;
 }
+
+.topic-selector {
+  position: fixed;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
